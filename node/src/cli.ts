@@ -11,7 +11,6 @@ import * as reporting from './reporting';
 import os from 'os';
 import path from 'path';
 import fs from 'fs';
-import colors from 'ansi-colors';
 import { EventEmitter } from 'events';
 import { Finding, Options, severityLevels } from './types';
 import * as z from 'zod';
@@ -67,7 +66,8 @@ const prg = program
   .parse()
   .opts();
 
-const colorwarn = prg.colors ? colors.red : (x: string) => x;
+const red = (x: string) => `\u001b[31m${x}\u001b[39m`;
+const colorwarn = prg.colors ? red : (x: string) => x;
 const jsrepolocation: string[] = (prg.jsrepo ?? "'central'")
   .split(',')
   .map((x: string) =>
